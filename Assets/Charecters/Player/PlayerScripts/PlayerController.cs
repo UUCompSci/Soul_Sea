@@ -16,12 +16,14 @@ public class PlayerController : MonoBehaviour
     //Animator animator;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     Rigidbody2D playerRB;
-
+    bool allowMove = true;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,28 +35,37 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate() {
         // if no input - temp nothing
         
-        
-        // if movement
-        if (movementInput != Vector2.zero){
-            bool canMove = TryMove(movementInput);
-            if (!canMove){
-                canMove = TryMove(new Vector2(movementInput.x, 0)); 
+        if (allowMove){
+            // if movement
+            if (movementInput != Vector2.zero){
+                bool canMove = TryMove(movementInput);
+                if (!canMove){
+                    canMove = TryMove(new Vector2(movementInput.x, 0)); 
+                }
+
+                if (!canMove){
+                    canMove = TryMove(new Vector2(0, movementInput.y));
+                }
+
+                bool facingRight = movementInput.x < 0;
+                this.transform.rotation = Quaternion.Euler(new Vector3(0f, facingRight ? 180f : 0f, 0f));
+
+                animator.SetBool("isMoving", canMove);
+            }else {
+                animator.SetBool("isMoving", false);
             }
 
-            if (!canMove){
-                canMove = TryMove(new Vector2(0, movementInput.y));
-            }
-            
 
         }
-
-
-
     }
 
     void OnMove(InputValue movementValue){
         movementInput = movementValue.Get<Vector2>();
 
+    }
+
+    void OnFire (){
+        animator.SetTrigger("swordAttack");
     }
 
 
@@ -78,5 +89,13 @@ public class PlayerController : MonoBehaviour
             return false;
         }
         
+    }
+
+    void lockMovement (){
+        allowMove = false;
+    }
+
+    void unLockMovement (){
+        allowMove = true;
     }
 }
