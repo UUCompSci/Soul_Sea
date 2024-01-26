@@ -21,7 +21,7 @@ public class SwordAttack : MonoBehaviour
 
     public void attackRight(){
         swordCollider.enabled = true;
-        transform.position = rightAttackOffset;
+        //transform.position = rightAttackOffset;  commenting this out to fix compile error until this is all finished. erase when you need to. ER
 
     }
 
