@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 1f;
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
+    public GameObject swordHitbox;
+
 
     Vector2 movementInput;
     //SpriteRenderer spriteRenderer;
@@ -19,11 +21,14 @@ public class PlayerController : MonoBehaviour
     bool allowMove = true;
     Animator animator;
 
+    Collider2D swordCollider;
+
     // Start is called before the first frame update
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        swordCollider = swordHitbox.GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -91,8 +96,10 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    
+
     void lockMovement (){
-        allowMove = false;
+        //allowMove = false;
     }
 
     void unLockMovement (){
