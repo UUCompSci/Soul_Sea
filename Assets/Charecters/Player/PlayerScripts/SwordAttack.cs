@@ -26,10 +26,12 @@ public class SwordAttack : MonoBehaviour
     }  
 
     public void attackRight(){
+ tutor
         //swordCollider.enabled = true;
         transform.position = new Vector2(attackOffset.x * -1, attackOffset.y);
         // add delay
         //swordCollider.enabled = false;
+
 
     }
 
