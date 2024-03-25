@@ -8,6 +8,7 @@ public class SwordAttack : MonoBehaviour
     Collider2D swordCollider;
     Vector2 attackOffset;
     [SerializeField] PlayerController player;
+    public int swordDamage;
 
 
     void Start()
@@ -19,40 +20,61 @@ public class SwordAttack : MonoBehaviour
         if (player.currentDirection == PlayerController.MovementDirection.L)
         {
             attackLeft();
-        } else if (player.currentDirection == PlayerController.MovementDirection.R)
+        }
+        else if (player.currentDirection == PlayerController.MovementDirection.R)
         {
             attackRight();
         };
-    }  
+    }
 
-    public void attackRight(){
- tutor
+    public void attackRight()
+    {
         //swordCollider.enabled = true;
         transform.position = new Vector2(attackOffset.x * -1, attackOffset.y);
         // add delay
         //swordCollider.enabled = false;
 
-
     }
 
-    public void attackLeft() {
+    public void attackLeft()
+    {
         //swordCollider.enabled = true;
         transform.position = new Vector2(attackOffset.x * -1, attackOffset.y);
         //swordCollider.enabled = false;
     }
 
-
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        Debug.Log("Sword hit something");
         // Check if the other collider is an enemy
-        if (other.CompareTag("Enemy"))
+        if (otherCollider.CompareTag("Enemy"))
         {
-            // Handle the collision with the enemy
-            Debug.Log("Sword hit an enemy!");
+            // Get the Enemy script attached to the collided GameObject
+            Enemy enemyScript = otherCollider.gameObject.GetComponent<EnemyHealth>();
 
-            // You can add logic here to damage the enemy or perform other actions
+            // Check if the Enemy script exists
+            if (enemyScript != null)
+            {
+                // Handle the collision with the enemy
+                Debug.Log("Sword hit an enemy!");
+                enemyScript.TakeDamage(swordDamage);
+
+                // You can add logic here to damage the enemy or perform other actions
+            }
         }
     }
+
+    /*    private void OnTriggerEnter2D(GameObject other)
+        {
+            Debug.Log("Sword hit something");
+            // Check if the other collider is an enemy
+            if (other.CompareTag("Enemy"))
+            {
+                // Handle the collision with the enemy
+                Debug.Log("Sword hit an enemy!");
+                other.EnemyHealth.takeDamage(swordDamage);
+
+                // You can add logic here to damage the enemy or perform other actions
+            }
+        }*/
 
 }

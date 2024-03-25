@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         move();
         
 
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue movementValue)
     {
         movementInput = movementValue.Get<Vector2>();
+        // Debug.Log("getting movement input" + movementInput);
 
     }
 
@@ -80,7 +82,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        // Debug.Log("movent input: " + movementInput);
         rb.velocity = movementInput * movementSpeed * Time.deltaTime;
+        // Debug.Log("rb.velocity: " + rb.velocity);
         return;
     }
 
