@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField, Range(0, 1)] private float diagonalSpeedFactor = .7f;
     [SerializeField] private Rigidbody2D rb;
+    public bool externalMovement = false;
     public enum MovementDirection { L,R,U,D,UL,DL,UR,DR };
     public MovementDirection currentDirection;
 
@@ -65,6 +66,8 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("isMoving", false);
         }
+
+        if (externalMovement) return;
 
         if(currentDirection == MovementDirection.L)
         {
