@@ -8147,6 +8147,11 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 2524858620162354203, guid: 589bcfddd015797458cdecd9b38f9c85, type: 3}
   m_PrefabInstance: {fileID: 1119058448396458131}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1726836330 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 167999956444494034, guid: 589bcfddd015797458cdecd9b38f9c85, type: 3}
+  m_PrefabInstance: {fileID: 1119058448396458131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1726836331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8160,7 +8165,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  knockback: 100
   playerHealth: {fileID: 1913974649}
+  playerPosition: {fileID: 1913974643}
+  enemyPosition: {fileID: 1726836330}
 --- !u!114 &1726836332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8198,10 +8206,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3e083e2ff20b341a619091e7d17b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputAction:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6d0cd3eb-4cbd-44dc-b6ae-7602e54ac937
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: WASD
+      m_Id: e18fdffb-9c94-4799-a76c-717e8682e5eb
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input
+      m_Flags: 4
+    - m_Name: up
+      m_Id: af0fb0c8-23e7-4573-ac45-a57c589b21de
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 8d56fa8f-4c76-4b86-99ad-93177ebfd003
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 2621913a-318e-43b9-bc0c-b3e4d94d4343
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input
+      m_Flags: 8
+    - m_Name: right
+      m_Id: adc70d34-ca7f-4992-8d1c-95f4b2a47f90
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input
+      m_Flags: 8
+    m_Flags: 0
   movementInput: {x: 0, y: 0}
   movementSpeed: 75
+  dashSpeed: 0
+  dashTime: 0
   diagonalSpeedFactor: 0.906
   rb: {fileID: 1913974646}
+  externalMovement: 0
   currentDirection: 0
   anim: {fileID: 1913974644}
   playerSprite: {fileID: 1913974648}
@@ -8238,10 +8298,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
-  health: 5
+  health: 9
   isInvincible: 0
   iFrames: 1
+  knockbackTime: 0.15
   healthBar: {fileID: 315596294}
+  rb: {fileID: 1913974646}
+  player: {fileID: 1913974637}
 --- !u!1 &2035671310
 GameObject:
   m_ObjectHideFlags: 0

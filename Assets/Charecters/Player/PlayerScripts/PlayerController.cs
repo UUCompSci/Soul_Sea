@@ -7,10 +7,14 @@ using UnityEditor.Experimental.GraphView;
 using static UnityEngine.UI.ScrollRect;
 using System.Net.Security;
 
+
 public class PlayerController : MonoBehaviour
 {
+    public InputAction inputAction;
+    public PlayerInputActions playerControls;
+    private InputAction dash;
     [SerializeField] private Vector2 movementInput;
-    [SerializeField] private float movementSpeed;
+    [SerializeField] private float movementSpeed, dashSpeed, dashTime;
     [SerializeField, Range(0, 1)] private float diagonalSpeedFactor = .7f;
     [SerializeField] private Rigidbody2D rb;
     public bool externalMovement = false;
@@ -39,7 +43,6 @@ public class PlayerController : MonoBehaviour
     {
         
         move();
-        
 
     }
 
@@ -53,6 +56,18 @@ public class PlayerController : MonoBehaviour
     void OnFire()
     {
         anim.SetTrigger("swordAttack");
+    }
+
+    private void Dash(InputAction.CallbackContext context)
+    {
+        Debug.Log("we are dashing");
+    }
+    void onDash()
+    {
+        Debug.Log("dash");
+        externalMovement = true;
+        rb.velocity = movementInput * dashSpeed * Time.deltaTime;
+        Invoke("endExternalMovement", dashTime);
     }
 
     private void move()
@@ -97,6 +112,11 @@ public class PlayerController : MonoBehaviour
         return;
     }
 
+    private void dash()
+    {
+        dash = playerControls.Player.Dash;
+    }
+
     private void setMovementState(Vector2 movementInput)
     {
 
@@ -122,10 +142,18 @@ public class PlayerController : MonoBehaviour
         }
 
 
-    } 
+    }
 
 
+    private void OnEnable()
+    {
+        dash = PlayerInput.;
+    }
 
+    public void endExternalMovenment()
+    {
+        externalMovement = false;
+    }
     public void lockMovement()
     {
 
