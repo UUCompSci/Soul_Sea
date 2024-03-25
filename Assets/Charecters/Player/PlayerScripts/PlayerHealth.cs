@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public int health;
     public bool isInvincible = false;
     public float iFrames = 1.0f;
+    public Image healthBar;
 
     // Start is called before the first frame update
     void Start()
@@ -33,13 +35,14 @@ public class PlayerHealth : MonoBehaviour
                 Debug.Log("Player Died, healing to full health");
                 health = maxHealth;
             }
+
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        healthBar.fillAmount = health/10f; 
     }
 
     public void hitInvicibility()

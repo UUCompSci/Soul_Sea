@@ -7,17 +7,26 @@ public class SwordAttack : MonoBehaviour
 
     Collider2D swordCollider;
     Vector2 attackOffset;
+    [SerializeField] PlayerController player;
+
 
     void Start()
     {
         swordCollider = GetComponent<Collider2D>();
         attackOffset = transform.position;
         swordCollider.isTrigger = true;
-        swordCollider.enabled = false;
+        // swordCollider.enabled = false;
+        if (player.currentDirection == PlayerController.MovementDirection.L)
+        {
+            attackLeft();
+        } else if (player.currentDirection == PlayerController.MovementDirection.R)
+        {
+            attackRight();
+        };
     }  
 
     public void attackRight(){
-        swordCollider.enabled = true;
+        //swordCollider.enabled = true;
         transform.position = new Vector2(attackOffset.x * -1, attackOffset.y);
         // add delay
         //swordCollider.enabled = false;
@@ -25,12 +34,12 @@ public class SwordAttack : MonoBehaviour
     }
 
     public void attackLeft() {
-        swordCollider.enabled = true;
+        //swordCollider.enabled = true;
         transform.position = new Vector2(attackOffset.x * -1, attackOffset.y);
-        swordCollider.enabled = false;
+        //swordCollider.enabled = false;
     }
 
-    // OnTriggerEnter2D is called when another collider enters the trigger collider
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Sword hit something");
@@ -44,12 +53,4 @@ public class SwordAttack : MonoBehaviour
         }
     }
 
-
-    // // Start is called before the first frame update
-
-    // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
 }

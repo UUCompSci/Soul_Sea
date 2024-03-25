@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Range(0, 1)] private float diagonalSpeedFactor = .7f;
     [SerializeField] private Rigidbody2D rb;
     public enum MovementDirection { L,R,U,D,UL,DL,UR,DR };
-    private MovementDirection currentDirection;
+    public MovementDirection currentDirection;
 
 
 
@@ -24,9 +24,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        movementInput = 
-        movementInput.x = Input.GetAxisRaw("Horizontal");
-        movementInput.y = Input.GetAxisRaw("Vertical");
+        
+
         if(Input.GetMouseButtonDown(0))
         {
             attack();
@@ -40,6 +39,17 @@ public class PlayerController : MonoBehaviour
         move();
         
 
+    }
+
+    void OnMove(InputValue movementValue)
+    {
+        movementInput = movementValue.Get<Vector2>();
+
+    }
+
+    void OnFire()
+    {
+        anim.SetTrigger("swordAttack");
     }
 
     private void move()
@@ -109,7 +119,12 @@ public class PlayerController : MonoBehaviour
 
 
 
-    public void freezeMovement()
+    public void lockMovement()
+    {
+
+    }
+
+    public void unLockMovement()
     {
 
     }
