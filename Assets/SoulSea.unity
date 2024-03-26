@@ -236,8 +236,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 140}
-  m_SizeDelta: {x: 150, y: 10}
+  m_AnchoredPosition: {x: -249, y: 162.00002}
+  m_SizeDelta: {x: 100, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &315596294
 MonoBehaviour:
@@ -302,7 +302,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 340837629}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -311,8 +311,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -280, y: 140}
-  m_SizeDelta: {x: 25, y: 25}
+  m_AnchoredPosition: {x: -301.8, y: 162.00002}
+  m_SizeDelta: {x: 48.356, y: 48.9613}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &340837631
 MonoBehaviour:
@@ -1189,6 +1189,58 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1113195688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7010312637741345954, guid: 589bcfddd015797458cdecd9b38f9c85, type: 3}
+  m_PrefabInstance: {fileID: 1119058448396458131}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1113195691 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 2524858620162354203, guid: 589bcfddd015797458cdecd9b38f9c85, type: 3}
+  m_PrefabInstance: {fileID: 1119058448396458131}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1113195693 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 167999956444494034, guid: 589bcfddd015797458cdecd9b38f9c85, type: 3}
+  m_PrefabInstance: {fileID: 1119058448396458131}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1113195694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113195688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668fb34f34b649249a4b70f110b65554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1113195691}
+  speed: 200
+  noticeRange: 1.5
+  attackRange: 0
+  attackDelay: 0
+  passedTime: 0
+  distanceToPlayer: 0
+  player: {fileID: 1913974643}
+--- !u!114 &1113195695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113195688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2dbf28241747c4181ab97231c2a0cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  knockback: 50
+  playerHealth: {fileID: 1913974649}
+  playerPosition: {fileID: 1913974643}
+  enemyPosition: {fileID: 1113195693}
 --- !u!1 &1326072963
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,8 +1275,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 140}
-  m_SizeDelta: {x: 160, y: 16}
+  m_AnchoredPosition: {x: -249, y: 162}
+  m_SizeDelta: {x: 100, y: 16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1326072965
 MonoBehaviour:
@@ -1275,7 +1327,6 @@ GameObject:
   - component: {fileID: 1507324982}
   - component: {fileID: 1507324983}
   - component: {fileID: 1507324984}
-  - component: {fileID: 1507324985}
   m_Layer: 0
   m_Name: SwordHitbox
   m_TagString: Untagged
@@ -1356,18 +1407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1913974637}
---- !u!114 &1507324985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1507324981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf6634724236f1947a9c9b208e748fa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  swordDamage: 2
 --- !u!1 &1570013885
 GameObject:
   m_ObjectHideFlags: 0
@@ -8153,10 +8193,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3e083e2ff20b341a619091e7d17b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputAction:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e41c6837-66c0-4fab-ab44-c3e6b317f64c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   movementInput: {x: 0, y: 0}
-  movementSpeed: 0
-  diagonalSpeedFactor: 0.7
+  movementSpeed: 75
+  dashSpeed: 0
+  dashTime: 0
+  diagonalSpeedFactor: 0.9
   rb: {fileID: 1913974646}
+  externalMovement: 0
   currentDirection: 0
   anim: {fileID: 1913974644}
   playerSprite: {fileID: 1913974648}
@@ -8195,8 +8247,11 @@ MonoBehaviour:
   maxHealth: 10
   health: 5
   isInvincible: 0
-  iFrames: 1
+  iFrames: 0.5
+  knockbackTime: 0.2
   healthBar: {fileID: 315596294}
+  rb: {fileID: 1913974646}
+  player: {fileID: 1913974637}
 --- !u!1 &2035671310
 GameObject:
   m_ObjectHideFlags: 0
@@ -8353,10 +8408,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime
       objectReference: {fileID: 0}
+    - target: {fileID: 7010312637741345954, guid: 589bcfddd015797458cdecd9b38f9c85, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7010312637741345954, guid: 589bcfddd015797458cdecd9b38f9c85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1113195694}
+    - targetCorrespondingSourceObject: {fileID: 7010312637741345954, guid: 589bcfddd015797458cdecd9b38f9c85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1113195695}
   m_SourcePrefab: {fileID: 100100000, guid: 589bcfddd015797458cdecd9b38f9c85, type: 3}
 --- !u!1001 &8836379192247244541
 PrefabInstance:

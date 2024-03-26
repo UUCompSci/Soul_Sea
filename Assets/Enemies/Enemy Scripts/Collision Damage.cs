@@ -5,13 +5,23 @@ using UnityEngine;
 public class CollisionDamage : MonoBehaviour
 {
     public int damage;
+    public float knockback;
+    Vector2 knockbackDirection;
     public PlayerHealth playerHealth;
+    [SerializeField]
+    private Transform playerPosition;
+    [SerializeField]
+    private Transform enemyPosition;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerHealth.takeDamage(damage);
+            knockbackDirection = (playerPosition.position - transform.position).normalized;
+            
+            playerHealth.takeDamage(damage, knockback, knockbackDirection);
+
+
         }
     }
 

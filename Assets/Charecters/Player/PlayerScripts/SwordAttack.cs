@@ -49,32 +49,20 @@ public class SwordAttack : MonoBehaviour
         if (otherCollider.CompareTag("Enemy"))
         {
             // Get the Enemy script attached to the collided GameObject
-            Enemy enemyScript = otherCollider.gameObject.GetComponent<EnemyHealth>();
+            GameObject enemy = otherCollider.gameObject.GetComponent<GameObject>();
 
             // Check if the Enemy script exists
-            if (enemyScript != null)
+            if (enemy != null)
             {
                 // Handle the collision with the enemy
                 Debug.Log("Sword hit an enemy!");
-                enemyScript.TakeDamage(swordDamage);
+                //enemy.TakeDamage(swordDamage);
 
                 // You can add logic here to damage the enemy or perform other actions
+                // add knockback
             }
         }
     }
 
-    /*    private void OnTriggerEnter2D(GameObject other)
-        {
-            Debug.Log("Sword hit something");
-            // Check if the other collider is an enemy
-            if (other.CompareTag("Enemy"))
-            {
-                // Handle the collision with the enemy
-                Debug.Log("Sword hit an enemy!");
-                other.EnemyHealth.takeDamage(swordDamage);
-
-                // You can add logic here to damage the enemy or perform other actions
-            }
-        }*/
 
 }

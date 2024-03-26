@@ -8,12 +8,17 @@ using static UnityEngine.UI.ScrollRect;
 using System.Net.Security;
 using Unity.VisualScripting;
 
+
 public class PlayerController : MonoBehaviour
 {
+    public InputAction inputAction;
+    public PlayerInputActions playerControls;
+    private InputAction dash;
     [SerializeField] private Vector2 movementInput;
-    [SerializeField] private float movementSpeed;
+    [SerializeField] private float movementSpeed, dashSpeed, dashTime;
     [SerializeField, Range(0, 1)] private float diagonalSpeedFactor = .7f;
     [SerializeField] private Rigidbody2D rb;
+    public bool externalMovement = false;
     public enum MovementDirection { L,R,U,D,UL,DL,UR,DR };
     public MovementDirection currentDirection;
 
@@ -39,7 +44,6 @@ public class PlayerController : MonoBehaviour
     {
         
         move();
-        
 
     }
 
@@ -55,6 +59,18 @@ public class PlayerController : MonoBehaviour
         anim.SetTrigger("swordAttack");
     }
 
+    private void Dash(InputAction.CallbackContext context)
+    {
+        Debug.Log("we are dashing");
+    }
+    void onDash()
+    {
+        Debug.Log("dash");
+        externalMovement = true;
+        rb.velocity = movementInput * dashSpeed * Time.deltaTime;
+        Invoke("endExternalMovement", dashTime);
+    }
+
     private void move()
     {
 
@@ -66,6 +82,8 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("isMoving", false);
         }
+
+        if (externalMovement) return;
 
         if(currentDirection == MovementDirection.L)
         {
@@ -95,6 +113,11 @@ public class PlayerController : MonoBehaviour
         return;
     }
 
+/*    private void dash()
+    {
+        dash = playerControls.Player.Dash;
+    }*/
+
     private void setMovementState(Vector2 movementInput)
     {
 
@@ -120,12 +143,13 @@ public class PlayerController : MonoBehaviour
         }
 
 
-    } 
+    }
 
     private void Awake()
     {
         playerControls = new PlayerInputActions();
     }
+
 
 /*    private void OnEnable()
     {
@@ -138,6 +162,11 @@ public class PlayerController : MonoBehaviour
     }
 */
 
+
+    public void endExternalMovenment()
+    {
+        externalMovement = false;
+    }
     public void lockMovement()
     {
 
