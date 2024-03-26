@@ -112,10 +112,10 @@ public class PlayerController : MonoBehaviour
         return;
     }
 
-    private void dash()
+/*    private void dash()
     {
         dash = playerControls.Player.Dash;
-    }
+    }*/
 
     private void setMovementState(Vector2 movementInput)
     {
@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        dash = PlayerInput.;
+/*        dash = PlayerInput.;*/
     }
 
     public void endExternalMovenment()
