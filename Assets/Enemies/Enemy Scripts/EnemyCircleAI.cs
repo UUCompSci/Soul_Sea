@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 
-public class NewBehaviourScript : MonoBehaviour
+public class enemyCircleAI : MonoBehaviour
 {
     [SerializeField]
     private Rigidbody2D rb;
     [SerializeField]
-    private float speed, noticeRange, distanceToPlayer;
+    private float speed, noticeRange, circleRange, distanceToPlayer;
 
     [SerializeField]
     private Transform player;
 
-    
+
 
 
 
@@ -37,12 +37,25 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void move()
     {
-        
-        if (distanceToPlayer < noticeRange)
+
+        if (distanceToPlayer < noticeRange && distanceToPlayer > circleRange)
         {
-            
+
             Vector2 moveDirection = (player.position - transform.position).normalized;
             rb.velocity = moveDirection * speed * Time.deltaTime;
+        }else if (distanceToPlayer <= circleRange)
+        {
+            Vector2 moveDirection = rotate((player.position - transform.position).normalized, 90);
+            rb.velocity = moveDirection * speed * Time.deltaTime;
         }
+    }
+
+   
+    public static Vector2 rotate(Vector2 v, float delta)
+    {
+        return new Vector2(
+            v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
+            v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
+        );
     }
 }
