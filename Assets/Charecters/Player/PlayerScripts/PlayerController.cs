@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEditor.Experimental.GraphView;
 using static UnityEngine.UI.ScrollRect;
 using System.Net.Security;
+using Unity.VisualScripting;
 
 
 public class PlayerController : MonoBehaviour
@@ -144,11 +145,23 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-    private void OnEnable()
+    private void Awake()
     {
-/*        dash = PlayerInput.;*/
+        playerControls = new PlayerInputActions();
     }
+
+
+/*    private void OnEnable()
+    {
+        Dash = playerControls.Player.Dash;
+    }
+
+    private void OnDisable()
+    {
+        Dash.Disable();
+    }
+*/
+
 
     public void endExternalMovenment()
     {
