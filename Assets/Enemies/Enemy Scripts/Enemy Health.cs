@@ -63,7 +63,14 @@ public class EnemyHealth : MonoBehaviour
     {
         isInvincible = false;
     }
-
+    public void endHit()
+    {
+        anim.Play("FireEnemyIdle");
+    }
+    public void dying()
+    {
+        Destroy(rb.GetComponent<Collider2D>());
+    }
     public void die()
     {
         Destroy(gameObject);

@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         }
 
         setMovementState(movementInput);
-        //UpdatedCooldownUI();
+        UpdatedCooldownUI();
     }
 
     private void FixedUpdate()
@@ -72,51 +72,48 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    void OnDash()
-    {
-        if (!canDash) { return; }
-        externalMovement = true;
-        canDash = false;
-        rb.velocity = movementInput * dashSpeed;
-        Invoke("endExternalMovement", dashTime);
-        Invoke("allowDash", dashRefresh);
-    }
-    void allowDash()
-    {
-        canDash = true;
-    }
-
     /*    void OnDash()
         {
-            if (!AllowDash()) return;
-
+            if (!canDash) { return; }
             externalMovement = true;
+            canDash = false;
             rb.velocity = movementInput * dashSpeed;
-            Invoke("endExternalMovement", dashRefresh);
-            lastDashed = Time.time;
-       }
-
-        bool AllowDash()
-        {
-            return RemainingCooldownTime <= 0f;
+            Invoke("endExternalMovement", dashTime);
+            Invoke("allowDash", dashRefresh);
         }
-
-        float RemainingCooldownTime
+        void allowDash()
         {
-            get
-            {
-                float elapsedTime = Time.time - lastDashed;
-                float remainingTime = Mathf.Max(0f, dashRefresh - elapsedTime);
-                return remainingTime;
-            }
-        }
-        void UpdatedCooldownUI()
-        {
-            if (Cooldown != null)
-            {
-                Cooldown.fillAmount = RemainingCooldownTime;
-            }
+            canDash = true;
         }*/
+
+    void OnDash()
+    {
+        if (!AllowDash()) return;
+        rb.AddForce(movementInput * dashSpeed, ForceMode2D.Impulse);
+        lastDashed = Time.time;
+    }
+
+    bool AllowDash()
+    {
+        return RemainingCooldownTime <= 0f;
+    }
+
+    float RemainingCooldownTime
+    {
+        get
+        {
+            float elapsedTime = Time.time - lastDashed;
+            float remainingTime = Mathf.Max(0f, dashRefresh - elapsedTime);
+            return remainingTime;
+        }
+    }
+    void UpdatedCooldownUI()
+    {
+        if (Cooldown != null)
+        {
+            Cooldown.fillAmount = RemainingCooldownTime;
+        }
+    }
     private void move()
     {
 
@@ -135,10 +132,12 @@ public class PlayerController : MonoBehaviour
         if (rb.velocity.x != 0 && rb.velocity.y != 0)
         {
             rb.velocity = movementInput * diagonalMoveSpeed * Time.deltaTime;
+            //rb.AddForce(movementInput * diagonalMoveSpeed * Time.deltaTime, ForceMode2D.Force);
             return;
         }
 
         rb.velocity = movementInput * movementSpeed * Time.deltaTime;
+        //rb.AddForce(movementInput * Time.deltaTime, ForceMode2D.Force);
         return;
     }
 
@@ -147,11 +146,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log("swinging the sword");
         return;
     }
-
-/*    private void dash()
-    {
-        dash = playerControls.Player.Dash;
-    }*/
 
     private void setMovementState(Vector2 movementInput)
     {

@@ -38,7 +38,7 @@ public class NewBehaviourScript : MonoBehaviour
         {
             
             Vector2 moveDirection = (player.position - transform.position).normalized;
-            rb.velocity = moveDirection * speed * Time.deltaTime;
+            rb.AddForce(moveDirection * speed);
         }
     }
 }
