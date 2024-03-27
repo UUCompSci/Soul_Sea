@@ -6,15 +6,18 @@ using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
 
-    public int maxHealth = 10;
-    public int health;
-    public bool isInvincible = false;
-    public float iFrames = 1.0f;
+    [SerializeField] private int maxHealth = 10;
+    [SerializeField] public int health;
+    private bool isInvincible = false;
+    [SerializeField] private float iFrames = 1.0f;
+    private bool inHitstun = false;
+    [SerializeField] Rigidbody2D rb;
+    [SerializeField] Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
-        health = maxHealth;
+        
 
     }
 
@@ -24,21 +27,24 @@ public class EnemyHealth : MonoBehaviour
         
     }
 
-    public void takeDamage(int damage)
+    public void takeDamage(int damage, float knockback, Vector2 knockbackDirection)
     {
         if (!isInvincible)
         {
+            inHitstun = true;
             hitInvicibility();
             // Debug.Log("is invicible:" + isInvincible+ " Damage:" + damage + " Player Health:" + health);
             if (damage < health)
             {
                 health -= damage;
+                anim.Play("FireEnemyHit");
+                rb.velocity = knockbackDirection * knockback;
             }
             else
             {
                 health = 0;
                 Debug.Log("Enemy Died");
-                Destroy(gameObject);
+                anim.Play("FireEnemyDie");
             }
 
         }

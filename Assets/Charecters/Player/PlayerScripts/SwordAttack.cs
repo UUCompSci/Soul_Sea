@@ -44,6 +44,9 @@ public class SwordAttack : MonoBehaviour
             // Get the Enemy script attached to the collided GameObject
             GameObject enemy = otherCollider.gameObject.GetComponent<GameObject>();
             Debug.Log("Sword hit an real enemy!");
+
+            EnemyHealth healthScript = enemy.GetComponent<EnemyHealth>();
+            healthScript.takeDamage();
             // Check if the Enemy script exists
             if (enemy != null)
             {

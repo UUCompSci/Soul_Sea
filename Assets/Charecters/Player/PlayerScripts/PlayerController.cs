@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         }
 
         setMovementState(movementInput);
-        UpdatedCooldownUI();
+        //UpdatedCooldownUI();
     }
 
     private void FixedUpdate()
@@ -72,51 +72,51 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    /*    void OnDash()
-        {
-            if(!canDash) { return; }
-            externalMovement = true;
-            canDash = false;
-            rb.velocity = movementInput * dashSpeed;
-            Invoke("endExternalMovement", dashTime);
-            Invoke("allowDash", dashRefresh);
-        }    
-        void allowDash()
-        {
-            canDash = true;
-        }*/
-
     void OnDash()
     {
-        if (!AllowDash()) return;
-
+        if (!canDash) { return; }
         externalMovement = true;
+        canDash = false;
         rb.velocity = movementInput * dashSpeed;
-        Invoke("endExternalMovement", dashRefresh);
-        lastDashed = Time.time;
-   }
-
-    bool AllowDash()
+        Invoke("endExternalMovement", dashTime);
+        Invoke("allowDash", dashRefresh);
+    }
+    void allowDash()
     {
-        return RemainingCooldownTime <= 0f;
+        canDash = true;
     }
 
-    float RemainingCooldownTime
-    {
-        get
+    /*    void OnDash()
         {
-            float elapsedTime = Time.time - lastDashed;
-            float remainingTime = Mathf.Max(0f, dashRefresh - elapsedTime);
-            return remainingTime;
-        }
-    }
-    void UpdatedCooldownUI()
-    {
-        if (Cooldown != null)
+            if (!AllowDash()) return;
+
+            externalMovement = true;
+            rb.velocity = movementInput * dashSpeed;
+            Invoke("endExternalMovement", dashRefresh);
+            lastDashed = Time.time;
+       }
+
+        bool AllowDash()
         {
-            Cooldown.fillAmount = RemainingCooldownTime;
+            return RemainingCooldownTime <= 0f;
         }
-    }
+
+        float RemainingCooldownTime
+        {
+            get
+            {
+                float elapsedTime = Time.time - lastDashed;
+                float remainingTime = Mathf.Max(0f, dashRefresh - elapsedTime);
+                return remainingTime;
+            }
+        }
+        void UpdatedCooldownUI()
+        {
+            if (Cooldown != null)
+            {
+                Cooldown.fillAmount = RemainingCooldownTime;
+            }
+        }*/
     private void move()
     {
 
