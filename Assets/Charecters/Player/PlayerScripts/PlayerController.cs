@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Range(0, 1)] private float diagonalSpeedFactor = .7f;
     [SerializeField] private Rigidbody2D rb;
     public bool externalMovement = false;
+    public bool directionalyAnimating = false;
     public enum MovementDirection { L,R,U,D,UL,DL,UR,DR };
     public MovementDirection currentDirection;
 
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("we are dashing");
     }
+
     void onDash()
     {
         Debug.Log("dash");
@@ -120,6 +122,7 @@ public class PlayerController : MonoBehaviour
 
     private void setMovementState(Vector2 movementInput)
     {
+        if (directionalyAnimating) return;
 
         if (movementInput.x > 0)
         {
@@ -167,6 +170,7 @@ public class PlayerController : MonoBehaviour
     {
         externalMovement = false;
     }
+
     public void lockMovement()
     {
 
