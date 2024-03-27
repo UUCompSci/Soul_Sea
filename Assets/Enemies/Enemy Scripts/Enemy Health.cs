@@ -8,9 +8,9 @@ public class EnemyHealth : MonoBehaviour
 
     [SerializeField] private int maxHealth = 10;
     [SerializeField] public int health;
-    private bool isInvincible = false;
-    [SerializeField] private float iFrames = 1.0f;
-    private bool inHitstun = false;
+    public bool isInvincible = false;
+    [SerializeField] private float iFrames;
+    
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Animator anim;
 
@@ -31,14 +31,13 @@ public class EnemyHealth : MonoBehaviour
     {
         if (!isInvincible)
         {
-            inHitstun = true;
             hitInvicibility();
             // Debug.Log("is invicible:" + isInvincible+ " Damage:" + damage + " Player Health:" + health);
             if (damage < health)
             {
                 health -= damage;
                 anim.Play("FireEnemyHit");
-                rb.velocity = knockbackDirection * knockback;
+                rb.AddForce(knockbackDirection * knockback);
             }
             else
             {
@@ -63,6 +62,11 @@ public class EnemyHealth : MonoBehaviour
     public void becomeVincible()
     {
         isInvincible = false;
+    }
+
+    public void die()
+    {
+        Destroy(gameObject);
     }
 }
 

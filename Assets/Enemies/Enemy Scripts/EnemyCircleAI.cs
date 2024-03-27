@@ -42,11 +42,11 @@ public class enemyCircleAI : MonoBehaviour
         {
 
             Vector2 moveDirection = (player.position - transform.position).normalized;
-            rb.velocity = moveDirection * speed * Time.deltaTime;
+            rb.AddForce(moveDirection * speed);
         }else if (distanceToPlayer <= circleRange)
         {
             Vector2 moveDirection = rotate((player.position - transform.position).normalized, 90);
-            rb.velocity = moveDirection * speed * Time.deltaTime;
+            rb.AddForce(moveDirection * speed);
         }
     }
 

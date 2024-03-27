@@ -10,6 +10,8 @@ public class SwordAttack : MonoBehaviour
     Collider2D swordCollider;
     [SerializeField] private float hitboxOffset = 0.5f;
     [SerializeField] PlayerController player;
+    [SerializeField] private float swordKnockback;
+    [SerializeField] private Transform playerPosition;
     public int swordDamage;
 
 
@@ -42,21 +44,13 @@ public class SwordAttack : MonoBehaviour
         {
 
             // Get the Enemy script attached to the collided GameObject
-            GameObject enemy = otherCollider.gameObject.GetComponent<GameObject>();
+            //GameObject enemy = otherCollider.gameObject.GetComponent<GameObject>();
             Debug.Log("Sword hit an real enemy!");
 
-            EnemyHealth healthScript = enemy.GetComponent<EnemyHealth>();
-            healthScript.takeDamage();
-            // Check if the Enemy script exists
-            if (enemy != null)
-            {
-                // Handle the collision with the enemy
-                
-                //enemy.TakeDamage(swordDamage);
+            EnemyHealth healthScript = otherCollider.GetComponent<EnemyHealth>();
+            Vector2 hitDirection = (playerPosition.position - transform.position).normalized;
+            healthScript.takeDamage(swordDamage, swordKnockback, hitDirection);
 
-                // You can add logic here to damage the enemy or perform other actions
-                // add knockback
-            }
         }
     }
 

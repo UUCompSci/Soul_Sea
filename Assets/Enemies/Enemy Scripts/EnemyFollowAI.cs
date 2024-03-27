@@ -6,13 +6,9 @@ using UnityEngine.InputSystem.Controls;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    [SerializeField]
-    private Rigidbody2D rb;
-    [SerializeField]
-    private float speed, noticeRange, distanceToPlayer;
-
-    [SerializeField]
-    private Transform player;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private float speed, noticeRange, distanceToPlayer;
+    [SerializeField] private Transform player;
 
     
 
