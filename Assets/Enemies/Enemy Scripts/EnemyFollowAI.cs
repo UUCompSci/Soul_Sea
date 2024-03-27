@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.UIElements;
 
-public class NewBehaviourScript : MonoBehaviour
+public class EnemyFollowAI : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed, noticeRange, distanceToPlayer;
     [SerializeField] private Transform player;
+    [SerializeField] public bool shouldRotate;
 
     
 
@@ -20,6 +22,7 @@ public class NewBehaviourScript : MonoBehaviour
         distanceToPlayer = Vector2.Distance(player.position, transform.position);
         Debug.Log("distanceToPlayer: " + distanceToPlayer);
         move();
+        //shouldRotate = true;
     }
 
     // Update is called once per frame
@@ -28,6 +31,7 @@ public class NewBehaviourScript : MonoBehaviour
 
         distanceToPlayer = Vector2.Distance(player.position, transform.position);
         move();
+        if(shouldRotate)rotateToPlayer();
 
     }
 
@@ -36,9 +40,15 @@ public class NewBehaviourScript : MonoBehaviour
         
         if (distanceToPlayer < noticeRange)
         {
-            
             Vector2 moveDirection = (player.position - transform.position).normalized;
             rb.AddForce(moveDirection * speed);
         }
+    }
+
+    private void rotateToPlayer() 
+    {
+        Vector2 directionToPlayer = player.position - transform.position;
+        float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x); //* Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
     }
 }
