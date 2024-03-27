@@ -5847,7 +5847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1113195691}
-  speed: 2
+  speed: 1
   noticeRange: 1.5
   distanceToPlayer: 0
   player: {fileID: 1913974643}
@@ -5885,8 +5885,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0cda703c39f3249a9c16d210eb0910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  health: 10
+  maxHealth: 5
+  health: 5
   isInvincible: 0
   iFrames: 0.2
   rb: {fileID: 1113195691}
@@ -6128,7 +6128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitboxOffset: 0.5
   player: {fileID: 1913974637}
-  swordKnockback: 50
+  swordKnockback: 7
   playerPosition: {fileID: 1913974643}
   swordDamage: 2
 --- !u!1 &1570013885
@@ -13113,7 +13113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1831415609}
-  speed: 2
+  speed: 1
   noticeRange: 2
   circleRange: 0.5
   distanceToPlayer: 0

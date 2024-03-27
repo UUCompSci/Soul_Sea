@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         }
 
         setMovementState(movementInput);
-        UpdatedCooldownUI();
+        //UpdatedCooldownUI();
     }
 
     private void FixedUpdate()
@@ -72,21 +72,21 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    /*    void OnDash()
-        {
-            if (!canDash) { return; }
-            externalMovement = true;
-            canDash = false;
-            rb.velocity = movementInput * dashSpeed;
-            Invoke("endExternalMovement", dashTime);
-            Invoke("allowDash", dashRefresh);
-        }
-        void allowDash()
-        {
-            canDash = true;
-        }*/
-
     void OnDash()
+    {
+        if (!canDash) { return; }
+        externalMovement = true;
+        canDash = false;
+        rb.velocity = movementInput * dashSpeed;
+        Invoke("endExternalMovement", dashTime);
+        Invoke("allowDash", dashRefresh);
+    }
+    void allowDash()
+    {
+        canDash = true;
+    }
+
+    /*void OnDash()
     {
         if (!AllowDash()) return;
         rb.AddForce(movementInput * dashSpeed, ForceMode2D.Impulse);
@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
         {
             Cooldown.fillAmount = RemainingCooldownTime;
         }
-    }
+    }*/
     private void move()
     {
 
@@ -131,13 +131,13 @@ public class PlayerController : MonoBehaviour
         float diagonalMoveSpeed = movementSpeed * diagonalSpeedFactor;
         if (rb.velocity.x != 0 && rb.velocity.y != 0)
         {
-            rb.velocity = movementInput * diagonalMoveSpeed * Time.deltaTime;
-            //rb.AddForce(movementInput * diagonalMoveSpeed * Time.deltaTime, ForceMode2D.Force);
+           rb.velocity = movementInput * diagonalMoveSpeed * Time.deltaTime;
+           //rb.AddForce(movementInput * diagonalMoveSpeed * Time.deltaTime);
             return;
         }
 
         rb.velocity = movementInput * movementSpeed * Time.deltaTime;
-        //rb.AddForce(movementInput * Time.deltaTime, ForceMode2D.Force);
+        //rb.AddForce(movementInput * Time.deltaTime);
         return;
     }
 

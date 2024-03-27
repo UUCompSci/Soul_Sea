@@ -37,7 +37,7 @@ public class EnemyHealth : MonoBehaviour
             {
                 health -= damage;
                 anim.Play("FireEnemyHit");
-                rb.AddForce(knockbackDirection * knockback);
+                rb.AddForce(knockbackDirection * knockback, ForceMode2D.Impulse);
             }
             else
             {
