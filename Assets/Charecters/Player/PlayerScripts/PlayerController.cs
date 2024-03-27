@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEditor.Experimental.GraphView;
 using static UnityEngine.UI.ScrollRect;
+using UnityEngine.UI;
 using System.Net.Security;
 using Unity.VisualScripting;
 
@@ -15,12 +16,14 @@ public class PlayerController : MonoBehaviour
     public PlayerInputActions playerControls;
     private InputAction dash;
     [SerializeField] private Vector2 movementInput;
-    [SerializeField] private float movementSpeed, dashSpeed, dashTime;
+    [SerializeField] private float movementSpeed, dashSpeed, dashTime, dashRefresh, timer;
     [SerializeField, Range(0, 1)] private float diagonalSpeedFactor = .7f;
     [SerializeField] private Rigidbody2D rb;
-    public bool externalMovement = false;
-    public bool directionalyAnimating = false;
-    public enum MovementDirection { L,R,U,D,UL,DL,UR,DR };
+    [SerializeField] private Image Cooldown;
+    [SerializeField] public bool externalMovement, directionalyAnimating, isAttacking, canDash;
+
+    [SerializeField] private SwordAttack swordAttack;
+    public enum MovementDirection { L,R };
     public MovementDirection currentDirection;
 
 
@@ -45,6 +48,10 @@ public class PlayerController : MonoBehaviour
     {
         
         move();
+        if (movementInput == Vector2.zero && !isAttacking) 
+        { anim.Play("Idle"); }
+        else if (movementInput != Vector2.zero && !isAttacking)
+        { anim.Play("walk"); };
 
     }
 
@@ -57,33 +64,39 @@ public class PlayerController : MonoBehaviour
 
     void OnFire()
     {
-        anim.SetTrigger("swordAttack");
+        isAttacking = true;
+        swordAttack.acttackInDirection(movementInput.normalized, currentDirection);
+        anim.Play("SwordAttack");
+
+        
     }
 
-    private void Dash(InputAction.CallbackContext context)
-    {
-        Debug.Log("we are dashing");
-    }
 
-    void onDash()
+    void OnDash()
     {
-        Debug.Log("dash");
+        if (!canDash) return;
         externalMovement = true;
+        canDash = false;
         rb.velocity = movementInput * dashSpeed * Time.deltaTime;
+        Invoke("allowDash", dashRefresh);
         Invoke("endExternalMovement", dashTime);
+    }
+
+    private void allowDash()
+    {
+        
+        while (timer < dashRefresh)
+        {
+            timer += Time.deltaTime;
+            float progress = Mathf.Clamp01(timer / dashRefresh);
+            Cooldown.fillAmount = Mathf.Lerp(0, dashRefresh, progress);
+            return;
+        }
+        canDash = true;
     }
 
     private void move()
     {
-
-        if (rb.velocity.x != 0 || rb.velocity.y != 0)
-        {
-            anim.SetBool("isMoving", true);
-        }
-        else
-        {
-            anim.SetBool("isMoving", false);
-        }
 
         if (externalMovement) return;
 
@@ -91,7 +104,7 @@ public class PlayerController : MonoBehaviour
         {
             playerSprite.flipX = true;
         }
-        else
+        else if (currentDirection == MovementDirection.R)
         {
             playerSprite.flipX = false;
         }
@@ -103,9 +116,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // Debug.Log("movent input: " + movementInput);
         rb.velocity = movementInput * movementSpeed * Time.deltaTime;
-        // Debug.Log("rb.velocity: " + rb.velocity);
         return;
     }
 
@@ -124,27 +135,8 @@ public class PlayerController : MonoBehaviour
     {
         if (directionalyAnimating) return;
 
-        if (movementInput.x > 0)
-        {
-            if(movementInput.y > 0 )
-            {
-                currentDirection = MovementDirection.UR;
-            }
-            currentDirection = MovementDirection.R;
-        }
-        else if (movementInput.x < 0)
-        {
-            currentDirection = MovementDirection.L;
-        }
-        else if (movementInput.y > 0)
-        {
-            currentDirection = MovementDirection.U;
-        }
-        else if (movementInput.y < 0)
-        {
-            currentDirection = MovementDirection.D;
-        }
-
+        if (movementInput.x > 0) currentDirection = MovementDirection.R;
+        if (movementInput.x < 0) currentDirection = MovementDirection.L;
 
     }
 
@@ -153,20 +145,12 @@ public class PlayerController : MonoBehaviour
         playerControls = new PlayerInputActions();
     }
 
-
-/*    private void OnEnable()
+    public void notAttacking()
     {
-        Dash = playerControls.Player.Dash;
+        isAttacking = false;
     }
 
-    private void OnDisable()
-    {
-        Dash.Disable();
-    }
-*/
-
-
-    public void endExternalMovenment()
+    public void endExternalMovement()
     {
         externalMovement = false;
     }

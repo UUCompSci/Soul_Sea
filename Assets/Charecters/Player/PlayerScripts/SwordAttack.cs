@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SwordAttack : MonoBehaviour
 {
 
     Collider2D swordCollider;
-    Vector2 attackOffset;
+    [SerializeField] private float hitboxOffset = 0.5f;
     [SerializeField] PlayerController player;
     public int swordDamage;
 
@@ -14,48 +16,39 @@ public class SwordAttack : MonoBehaviour
     void Start()
     {
         swordCollider = GetComponent<Collider2D>();
-        attackOffset = transform.position;
         swordCollider.isTrigger = true;
-        // swordCollider.enabled = false;
-        if (player.currentDirection == PlayerController.MovementDirection.L)
-        {
-            attackLeft();
-        }
-        else if (player.currentDirection == PlayerController.MovementDirection.R)
-        {
-            attackRight();
-        };
+        swordCollider.enabled = false;
+
     }
 
-    public void attackRight()
+    public void acttackInDirection(Vector2 direction, PlayerController.MovementDirection facing)
     {
-        //swordCollider.enabled = true;
-        transform.position = new Vector2(attackOffset.x * -1, attackOffset.y);
-        // add delay
-        //swordCollider.enabled = false;
+        swordCollider.enabled = true;
+        Vector2 hitBoxPosition = Vector2.zero;
+        if (facing == PlayerController.MovementDirection.L) hitBoxPosition.x = -.7f;
+        else if (facing == PlayerController.MovementDirection.R) hitBoxPosition.x = .3f;
+        swordCollider.offset = hitBoxPosition;
+        
+
 
     }
 
-    public void attackLeft()
-    {
-        //swordCollider.enabled = true;
-        transform.position = new Vector2(attackOffset.x * -1, attackOffset.y);
-        //swordCollider.enabled = false;
-    }
 
     private void OnTriggerEnter2D(Collider2D otherCollider)
     {
+        Debug.Log("Sword hit something");
         // Check if the other collider is an enemy
-        if (otherCollider.CompareTag("Enemy"))
+        if (otherCollider.CompareTag("Enemy") && player.isAttacking)
         {
+
             // Get the Enemy script attached to the collided GameObject
             GameObject enemy = otherCollider.gameObject.GetComponent<GameObject>();
-
+            Debug.Log("Sword hit an real enemy!");
             // Check if the Enemy script exists
             if (enemy != null)
             {
                 // Handle the collision with the enemy
-                Debug.Log("Sword hit an enemy!");
+                
                 //enemy.TakeDamage(swordDamage);
 
                 // You can add logic here to damage the enemy or perform other actions
