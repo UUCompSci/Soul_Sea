@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public PlayerInputActions playerControls;
     private InputAction dash;
     [SerializeField] private Vector2 movementInput;
-    [SerializeField] private float movementSpeed, dashSpeed, dashTime, dashRefresh, timer;
+    [SerializeField] private float movementSpeed, dashSpeed, dashTime, dashRefresh, lastDashed;
     [SerializeField, Range(0, 1)] private float diagonalSpeedFactor = .7f;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Image Cooldown;
@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
         }
 
         setMovementState(movementInput);
+        UpdatedCooldownUI();
     }
 
     private void FixedUpdate()
@@ -71,52 +72,52 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private float lastDashed = 0f; //add this variable for recording the time when a dash is performed
+    /*    void OnDash()
+        {
+            if(!canDash) { return; }
+            externalMovement = true;
+            canDash = false;
+            rb.velocity = movementInput * dashSpeed;
+            Invoke("endExternalMovement", dashTime);
+            Invoke("allowDash", dashRefresh);
+        }    
+        void allowDash()
+        {
+            canDash = true;
+        }*/
 
     void OnDash()
     {
-        if(!canDash) { return; }
+        if (!AllowDash()) return;
+
         externalMovement = true;
-        canDash = false;
         rb.velocity = movementInput * dashSpeed;
-        Invoke("endExternalMovement", dashTime);
-        Invoke("allowDash", dashRefresh);
-    }    
-    void allowDash()
+        Invoke("endExternalMovement", dashRefresh);
+        lastDashed = Time.time;
+   }
+
+    bool AllowDash()
     {
-        canDash = true;
+        return RemainingCooldownTime <= 0f;
     }
-        /*    void OnDash()
-            {
-                if (!canDash) return;
-                Debug.Log("start dash");
-                externalMovement = true;
-                canDash = false;
-                rb.velocity = movementInput * dashSpeed * Time.deltaTime;
-                allowDash();
-            }
 
-            private void allowDash()
-            {
-                Debug.Log("start allow dash");
-                float startTime = Time.time;
-                while (timer < dashRefresh)
-                {
-                    //Debug.Log("delta time: " + Time.deltaTime);
-                    //Debug.Log("time: " + Time.time);
-                    timer += Time.time - startTime;
-
-                    Cooldown.fillAmount = timer;
-
-                }
-                timer = 0;
-                endExternalMovement();
-                canDash = true;
-                Debug.Log("end allow dash");
-                return;
-            }
-        */
-        private void move()
+    float RemainingCooldownTime
+    {
+        get
+        {
+            float elapsedTime = Time.time - lastDashed;
+            float remainingTime = Mathf.Max(0f, dashRefresh - elapsedTime);
+            return remainingTime;
+        }
+    }
+    void UpdatedCooldownUI()
+    {
+        if (Cooldown != null)
+        {
+            Cooldown.fillAmount = RemainingCooldownTime;
+        }
+    }
+    private void move()
     {
 
         if (externalMovement) return;
