@@ -13128,7 +13128,7 @@ MonoBehaviour:
     m_Flags: 0
   movementInput: {x: 0, y: 0}
   movementSpeed: 75
-  dashSpeed: 500
+  dashSpeed: 5
   dashTime: 0.179
   dashRefresh: 2
   timer: 0
@@ -13246,8 +13246,8 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 0.871
-  m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillClockwise: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1977796913

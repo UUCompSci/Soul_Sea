@@ -71,31 +71,52 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    private float lastDashed = 0f; //add this variable for recording the time when a dash is performed
 
     void OnDash()
     {
-        if (!canDash) return;
+        if(!canDash) { return; }
         externalMovement = true;
         canDash = false;
-        rb.velocity = movementInput * dashSpeed * Time.deltaTime;
-        Invoke("allowDash", dashRefresh);
+        rb.velocity = movementInput * dashSpeed;
         Invoke("endExternalMovement", dashTime);
-    }
-
-    private void allowDash()
+        Invoke("allowDash", dashRefresh);
+    }    
+    void allowDash()
     {
-        
-        while (timer < dashRefresh)
-        {
-            timer += Time.deltaTime;
-            float progress = Mathf.Clamp01(timer / dashRefresh);
-            Cooldown.fillAmount = Mathf.Lerp(0, dashRefresh, progress);
-            return;
-        }
         canDash = true;
     }
+        /*    void OnDash()
+            {
+                if (!canDash) return;
+                Debug.Log("start dash");
+                externalMovement = true;
+                canDash = false;
+                rb.velocity = movementInput * dashSpeed * Time.deltaTime;
+                allowDash();
+            }
 
-    private void move()
+            private void allowDash()
+            {
+                Debug.Log("start allow dash");
+                float startTime = Time.time;
+                while (timer < dashRefresh)
+                {
+                    //Debug.Log("delta time: " + Time.deltaTime);
+                    //Debug.Log("time: " + Time.time);
+                    timer += Time.time - startTime;
+
+                    Cooldown.fillAmount = timer;
+
+                }
+                timer = 0;
+                endExternalMovement();
+                canDash = true;
+                Debug.Log("end allow dash");
+                return;
+            }
+        */
+        private void move()
     {
 
         if (externalMovement) return;
