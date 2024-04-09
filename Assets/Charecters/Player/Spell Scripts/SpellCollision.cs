@@ -15,7 +15,7 @@ public class SpellCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("frieball hit enemy");
-            knockbackDirection = (collision.gameObject.transform.position - transform.position).normalized;
+            knockbackDirection = (transform.position - collision.gameObject.transform.position).normalized;
 
             EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
             enemyHealth.takeDamage(damage, knockback, knockbackDirection);

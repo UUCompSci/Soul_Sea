@@ -50,7 +50,7 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthBar.fillAmount = health/10f; 
+        healthBar.fillAmount = health/maxHealth; 
     }
 
     public void hitInvicibility()

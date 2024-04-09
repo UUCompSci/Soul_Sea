@@ -166,8 +166,10 @@ MonoBehaviour:
   fireball: {fileID: 0}
   spellSpeed: 0.1
   playerCotroller: {fileID: 0}
+  playerMana: {fileID: 0}
   playerTransform: {fileID: 0}
   spellDuration: 50
+  manaCost: 1
 --- !u!114 &-5535924768296525582
 MonoBehaviour:
   m_ObjectHideFlags: 0
