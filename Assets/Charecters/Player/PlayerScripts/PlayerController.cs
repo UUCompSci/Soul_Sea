@@ -147,6 +147,11 @@ public class PlayerController : MonoBehaviour
         return;
     }
 
+    public Vector2 getCurrentDirection()
+    {
+        return movementInput.normalized;
+    }
+
     private void setMovementState(Vector2 movementInput)
     {
         if (directionalyAnimating) return;

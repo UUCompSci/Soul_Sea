@@ -13,9 +13,9 @@ public class CollisionDamage : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            knockbackDirection = (playerPosition.position - transform.position).normalized;
+            knockbackDirection = (transform.position - collision.gameObject.transform.position).normalized;
             
             playerHealth.takeDamage(damage, knockback, knockbackDirection);
 

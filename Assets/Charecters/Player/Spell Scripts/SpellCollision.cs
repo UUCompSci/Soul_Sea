@@ -8,20 +8,22 @@ public class SpellCollision : MonoBehaviour
     public int damage;
     public float knockback;
     Vector2 knockbackDirection;
-    public PlayerHealth playerHealth;
-    [SerializeField] private Transform playerPosition;
-    [SerializeField] private Transform enemyPosition;
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            knockbackDirection = (playerPosition.position - transform.position).normalized;
+            knockbackDirection = (collision.gameObject.transform.position - transform.position).normalized;
 
-            playerHealth.takeDamage(damage, knockback, knockbackDirection);
+            EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+            enemyHealth.takeDamage(damage, knockback, knockbackDirection);
 
 
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 

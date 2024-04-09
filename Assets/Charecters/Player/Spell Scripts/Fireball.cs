@@ -9,6 +9,7 @@ public class Fireball : MonoBehaviour
     public float spellSpeed = 20f;
     [SerializeField] public PlayerController playerCotroller;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private float spellDuration;
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +22,12 @@ public class Fireball : MonoBehaviour
     {
         Vector2 playerPosition = playerTransform.position;
         Rigidbody2D newFireball = Instantiate(fireball, playerPosition, Quaternion.identity) as Rigidbody2D;
-        Rigidbody rb = newFireball.GetComponent<Rigidbody>();
-        //Vector2 launchDirection = playerCotroller.GetComponent<PlayerController.currentDirection>();
-        
-    
+        //Rigidbody2D rb = newFireball.GetComponent<Rigidbody2D>();
+        //rb.collisionDetectionMode = CollisionDetectionMode2D.Discrete;
+        Vector2 launchDirection = playerCotroller.getCurrentDirection();
+        newFireball.AddForce(launchDirection * spellSpeed);
+        Destroy(newFireball, spellDuration);
+
     }
 
 }
