@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,19 +10,23 @@ public class DisplayDialogue : MonoBehaviour
 {
     [SerializeField] public Image imageToShow;
     [SerializeField] public string titleToShow;
-    [SerializeField] public TextElementType textToChange;
+    [SerializeField] public Text textToChange;
+
+    void Start(){
+        imageToShow.enabled = false;
+        textToChange.text = "";
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // Make the image visible
             if (imageToShow != null)
             {
                 imageToShow.enabled = true;
             }
 
-            // Change the text of the text TMP item
             if (textToChange != null)
             {
                 textToChange.text = "New Text";
