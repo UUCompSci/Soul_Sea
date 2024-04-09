@@ -14,15 +14,17 @@ public class SpellCollision : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            Debug.Log("frieball hit enemy");
             knockbackDirection = (collision.gameObject.transform.position - transform.position).normalized;
 
             EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
             enemyHealth.takeDamage(damage, knockback, knockbackDirection);
-
+            Destroy(gameObject);
 
         }
-        else
+        else if (collision.gameObject.CompareTag("Barrier"))
         {
+            Debug.Log("fireball collided with non-enemy, destroying");
             Destroy(gameObject);
         }
     }

@@ -6,10 +6,10 @@ using UnityEngine.InputSystem;
 public class Fireball : MonoBehaviour
 {
     [SerializeField] public Rigidbody2D fireball;
-    public float spellSpeed = 20f;
+    public float spellSpeed;
     [SerializeField] public PlayerController playerCotroller;
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private float spellDuration;
+    [SerializeField] private float spellDuration = 50f;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,8 @@ public class Fireball : MonoBehaviour
         //rb.collisionDetectionMode = CollisionDetectionMode2D.Discrete;
         Vector2 launchDirection = playerCotroller.getCurrentDirection();
         newFireball.AddForce(launchDirection * spellSpeed);
-        Destroy(newFireball, spellDuration);
+        //Debug.Log("frieball destruction started");
+        //Destroy(newFireball.gameObject, spellDuration);
 
     }
 
