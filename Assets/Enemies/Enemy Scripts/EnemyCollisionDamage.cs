@@ -8,10 +8,8 @@ public class CollisionDamage : MonoBehaviour
     public float knockback;
     Vector2 knockbackDirection;
     public PlayerHealth playerHealth;
-    [SerializeField]
-    private Transform playerPosition;
-    [SerializeField]
-    private Transform enemyPosition;
+    [SerializeField] private Transform playerPosition;
+    [SerializeField] private Transform enemyPosition;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

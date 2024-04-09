@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class SwordAttack : MonoBehaviour
 {
@@ -46,9 +47,10 @@ public class SwordAttack : MonoBehaviour
             // Get the Enemy script attached to the collided GameObject
             //GameObject enemy = otherCollider.gameObject.GetComponent<GameObject>();
             Debug.Log("Sword hit an real enemy!");
-
+            Transform enemyPosition = otherCollider.GetComponent<Transform>();
             EnemyHealth healthScript = otherCollider.GetComponent<EnemyHealth>();
-            Vector2 hitDirection = (playerPosition.position - transform.position).normalized;
+            Vector2 hitDirection = (enemyPosition.position - playerPosition.position).normalized;
+            Debug.Log("hit direction x: " + hitDirection.x + " y: " + hitDirection.y);
             healthScript.takeDamage(swordDamage, swordKnockback, hitDirection);
 
         }
