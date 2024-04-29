@@ -141324,8 +141324,8 @@ MonoBehaviour:
     m_Flags: 0
   movementInput: {x: 0, y: 0}
   movementSpeed: 75
-  dashSpeed: 5
-  dashTime: 0.179
+  dashSpeed: 17
+  dashTime: 0.3
   dashRefresh: 2
   lastDashed: 0
   diagonalSpeedFactor: 0.9

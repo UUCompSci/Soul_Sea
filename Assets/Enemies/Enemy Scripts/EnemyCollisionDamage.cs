@@ -11,6 +11,8 @@ public class CollisionDamage : MonoBehaviour
     [SerializeField] private Transform playerPosition;
     [SerializeField] private Transform enemyPosition;
 
+    // Deals damage to player on contact
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))

@@ -34,12 +34,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
-
-        if(Input.GetMouseButtonDown(0))
-        {
-            attack();
-        }
 
         setMovementState(movementInput);
         //UpdatedCooldownUI();
@@ -56,6 +50,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    // Takes movement input
     void OnMove(InputValue movementValue)
     {
         movementInput = movementValue.Get<Vector2>();
@@ -63,6 +58,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    // Checks for LEFT MOUSE CLICK or RT
     void OnFire()
     {
         isAttacking = true;
@@ -72,6 +68,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    // Checkts for SHIFT or PUSH RIGHT STICK
     void OnDash()
     {
         if (!canDash) { return; }
@@ -86,39 +83,13 @@ public class PlayerController : MonoBehaviour
         canDash = true;
     }
 
-    /*void OnDash()
-    {
-        if (!AllowDash()) return;
-        rb.AddForce(movementInput * dashSpeed, ForceMode2D.Impulse);
-        lastDashed = Time.time;
-    }
-
-    bool AllowDash()
-    {
-        return RemainingCooldownTime <= 0f;
-    }
-
-    float RemainingCooldownTime
-    {
-        get
-        {
-            float elapsedTime = Time.time - lastDashed;
-            float remainingTime = Mathf.Max(0f, dashRefresh - elapsedTime);
-            return remainingTime;
-        }
-    }
-    void UpdatedCooldownUI()
-    {
-        if (Cooldown != null)
-        {
-            Cooldown.fillAmount = RemainingCooldownTime;
-        }
-    }*/
+    // Deals with movement input
     private void move()
     {
-
+        // checks for other function needing to control movement
         if (externalMovement) return;
 
+        // fixes sprite
         if(currentDirection == MovementDirection.L)
         {
             playerSprite.flipX = true;
@@ -128,6 +99,7 @@ public class PlayerController : MonoBehaviour
             playerSprite.flipX = false;
         }
 
+        //deals with diagonal moving faster
         float diagonalMoveSpeed = movementSpeed * diagonalSpeedFactor;
         if (rb.velocity.x != 0 && rb.velocity.y != 0)
         {
@@ -141,17 +113,13 @@ public class PlayerController : MonoBehaviour
         return;
     }
 
-    private void attack()
-    {
-        Debug.Log("swinging the sword");
-        return;
-    }
-
+    //Used in other scripts
     public Vector2 getCurrentDirection()
     {
         return movementInput.normalized;
     }
 
+    // Saves last direction sprite is facing
     private void setMovementState(Vector2 movementInput)
     {
         if (directionalyAnimating) return;

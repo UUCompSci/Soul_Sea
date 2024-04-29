@@ -23,6 +23,7 @@ public class PlayerHealth : MonoBehaviour
         
     }
 
+    // Called by enemies
     public void takeDamage(int damage, float knockback, Vector2 knockbackDirection)
     {
         if (!isInvincible)
@@ -50,6 +51,7 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // updates healthbar visuals
         healthBar.fillAmount = health/maxHealth; 
     }
 

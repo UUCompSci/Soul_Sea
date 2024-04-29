@@ -27,6 +27,7 @@ public class EnemyHealth : MonoBehaviour
         
     }
 
+    // called by the player/spell
     public void takeDamage(int damage, float knockback, Vector2 knockbackDirection)
     {
         if (!isInvincible)

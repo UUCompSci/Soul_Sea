@@ -20,10 +20,12 @@ public class PlayerMana : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // updates visual mana bar
         manaBar.fillAmount = mana / maxMana;
         Debug.Log(" mana fill amount: " + mana / maxMana);
     }
 
+    // puts mana to max mana
     IEnumerator refillMana()
     {
         while (true)
@@ -42,6 +44,7 @@ public class PlayerMana : MonoBehaviour
         if(manaUsed > mana)
         {
             return false;
+
         }else if(manaUsed <= mana)
         {
             mana = mana - manaUsed;

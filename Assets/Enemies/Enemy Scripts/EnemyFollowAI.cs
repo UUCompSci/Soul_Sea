@@ -34,6 +34,8 @@ public class EnemyFollowAI : MonoBehaviour
         if(shouldRotate)rotateToPlayer();
 
     }
+    
+    // Moves directly towards player when player is close enough
 
     private void move()
     {

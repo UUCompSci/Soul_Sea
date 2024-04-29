@@ -15,7 +15,7 @@ public class enemyCircleAI : MonoBehaviour
     private Transform player;
 
 
-
+    
 
 
     // Start is called before the first frame update
@@ -23,7 +23,7 @@ public class enemyCircleAI : MonoBehaviour
     {
         distanceToPlayer = Vector2.Distance(player.position, transform.position);
         Debug.Log("distanceToPlayer: " + distanceToPlayer);
-        move();
+
     }
 
     // Update is called once per frame
@@ -35,6 +35,7 @@ public class enemyCircleAI : MonoBehaviour
 
     }
 
+    // Moves enemy in a circle cirecleRange away from the player
     private void move()
     {
 
